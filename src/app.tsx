@@ -1,12 +1,21 @@
 import React, { Suspense } from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { IUser } from './domain-models/user';
 
 const queryClient = new QueryClient();
 
 const Users: React.FC = () => {
-  const { data } = useQuery('users', () => fetch('http://localhost:4000/users').then((res) => res.json()), { suspense: true });
+  const { data: users } = useQuery<IUser[]>('users', () => fetch('http://localhost:4000/users').then((res) => res.json()), { suspense: true });
 
-  return <div>{JSON.stringify(data)}</div>;
+  return (
+    <div>
+      {users?.map(({ name, age }) => (
+        <>
+          <div>Name: {name}</div> <div>Age: {age}</div>
+        </>
+      ))}
+    </div>
+  );
 };
 
 const App: React.FC = () => {
