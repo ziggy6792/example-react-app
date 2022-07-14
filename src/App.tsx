@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react';
-import './App.css';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
 const queryClient = new QueryClient();
